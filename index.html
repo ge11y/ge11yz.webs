@@ -25,11 +25,39 @@
       position: relative;
       width: 100%;
       height: 100%;
-      transition: transform 0.65s cubic-bezier(0.23, 1, 0.32, 1);
+      transition: transform 0.65s cubic-bezier(0.23, 1, 0.32, 1),
+                  box-shadow 0.4s ease;
       transform-style: preserve-3d;
+    }
+    /* Hover glow */
+    .flip-card:hover .flip-card-inner {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.12);
+    }
+    .flip-card:hover .flip-glow {
+      opacity: 0.18;
+    }
+    /* Selected pulse ring */
+    .flip-card.selected .flip-card-inner::after {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: 12px;
+      border: 1.5px solid var(--accent, #fff);
+      opacity: 0;
+      animation: cardPulse 1.4s ease-out infinite;
+      pointer-events: none;
+      z-index: 10;
+    }
+    @keyframes cardPulse {
+      0%   { opacity: 0.7; transform: scale(1);    }
+      100% { opacity: 0;   transform: scale(1.06); }
     }
     .flip-card.flipped .flip-card-inner {
       transform: rotateY(180deg);
+    }
+    .flip-card.flipped:hover .flip-card-inner {
+      transform: rotateY(180deg) translateY(-4px);
     }
     .flip-card-front,
     .flip-card-back {
@@ -336,7 +364,7 @@
       projects.forEach(function(p, i) {
         var glowStyle = 'background:radial-gradient(ellipse at 30% 20%, ' + p.accent + ' 0%, transparent 60%)';
         html += ''
-          + '<div class="flip-card" id="flipCard' + i + '" onclick="flipCard(' + i + ')">'
+          + '<div class="flip-card" id="flipCard' + i + '" style="--accent:' + p.accent + '" onclick="flipCard(' + i + ')">'
           + '  <div class="flip-card-inner">'
           + '    <div class="flip-card-front">'
           + '      <div class="flip-glow" style="' + glowStyle + '"></div>'
@@ -372,7 +400,17 @@
 
     function flipCard(i) {
       var card = document.getElementById('flipCard' + i);
-      if (card) card.classList.toggle('flipped');
+      if (!card) return;
+      // Remove selected from all other cards
+      document.querySelectorAll('.flip-card.selected').forEach(function(c) {
+        if (c !== card) c.classList.remove('selected');
+      });
+      card.classList.toggle('flipped');
+      if (card.classList.contains('flipped')) {
+        card.classList.add('selected');
+      } else {
+        card.classList.remove('selected');
+      }
     }
 
     // Logo color burst
