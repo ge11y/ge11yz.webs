@@ -243,8 +243,22 @@
     <div class="divider"><hr></div>
 
     <section class="projects-section">
-      <p class="section-label">Projects</p>
-      <div class="flip-grid" id="flipGrid"></div>
+      <p class="section-label">Featured</p>
+      <div class="flip-grid" id="flipGridFeatured"></div>
+    </section>
+
+    <div class="divider"><hr></div>
+
+    <section class="projects-section">
+      <p class="section-label">Community</p>
+      <div class="flip-grid" id="flipGridCommunity"></div>
+    </section>
+
+    <div class="divider"><hr></div>
+
+    <section class="projects-section">
+      <p class="section-label">Ideas &amp; Projects</p>
+      <div class="flip-grid" id="flipGridIdeas"></div>
     </section>
 
     <div class="divider"><hr></div>
@@ -259,20 +273,7 @@
 
   <script src="webgl-fluid.js"></script>
   <script>
-    var projects = [
-      {
-        name: 'ogbe.art',
-        tagline: 'Bitcoin Ordinal Art Portfolio',
-        url: 'https://ogbe.art',
-        accent: '#c8a8e8',
-        desc: 'A curated portfolio showcasing Ordinal inscriptions across multiple collections. Features a WebGL fluid simulation background with a minimalist black card layout.',
-        notes: [
-          'WebGL fluid background — click logo for color burst',
-          'Collections: EEGUN (111 pcs), IRO, TitWifNip, FLUX, For The Birds, INDICOLITE, and more',
-          'Piece viewer with arrow nav, zoom, and pan across all collections',
-          'Fonts enlarged — collection names at 18px, white text with gold glow on hover',
-        ],
-      },
+    var featured = [
       {
         name: 'rea1yze.com',
         tagline: 'AI Thought Mapping',
@@ -288,6 +289,37 @@
           '&quot;How it works&quot; card text overlap fixed',
         ],
       },
+    ];
+
+    var community = [
+      {
+        name: 'ogbe.art',
+        tagline: 'Bitcoin Ordinal Art Portfolio',
+        url: 'https://ogbe.art',
+        accent: '#c8a8e8',
+        desc: 'A curated portfolio showcasing Ordinal inscriptions across multiple collections. Features a WebGL fluid simulation background with a minimalist black card layout.',
+        notes: [
+          'WebGL fluid background — click logo for color burst',
+          'Collections: EEGUN (111 pcs), IRO, TitWifNip, FLUX, For The Birds, INDICOLITE, and more',
+          'Piece viewer with arrow nav, zoom, and pan across all collections',
+          'Fonts enlarged — collection names at 18px, white text with gold glow on hover',
+        ],
+      },
+      {
+        name: 't0ph.art',
+        tagline: 'Digital Artist',
+        url: 'https://t0ph.art',
+        accent: '#c8e8a8',
+        desc: 'Digital artist — skulls and drip on-chain. Unique visual style blending dark aesthetics with digital craftsmanship.',
+        notes: [
+          'Skull and drip art on Bitcoin Ordinals',
+          'Unique dark aesthetic with digital craftsmanship',
+          'On-chain artwork, fully verifiable',
+        ],
+      },
+    ];
+
+    var ideas = [
       {
         name: 'aisess.xyz',
         tagline: 'AI URL Valuation Tool',
@@ -361,13 +393,14 @@
       },
     ];
 
-    var flipGrid = document.getElementById('flipGrid');
-    if (flipGrid) {
+    function renderGrid(containerId, projects) {
+      var container = document.getElementById(containerId);
+      if (!container) return;
       var html = '';
       projects.forEach(function(p, i) {
         var glowStyle = 'background:radial-gradient(ellipse at 30% 20%, ' + p.accent + ' 0%, transparent 60%)';
         html += ''
-          + '<div class="flip-card" id="flipCard' + i + '" style="--accent:' + p.accent + '" onclick="flipCard(' + i + ', event)">'
+          + '<div class="flip-card" id="' + containerId + 'Card' + i + '" style="--accent:' + p.accent + '" onclick="flipCard(\'' + containerId + '\', ' + i + ', event)">'
           + '  <div class="flip-card-inner">'
           + '    <div class="flip-card-front">'
           + '      <div class="flip-glow" style="' + glowStyle + '"></div>'
@@ -382,7 +415,7 @@
           + '      <div class="flip-back-content">'
           + '        <div class="flip-back-header">'
           + '          <div class="flip-back-title" style="color:' + p.accent + '">Summary</div>'
-          + '          <button class="flip-back-btn" onclick="event.stopPropagation(); flipCard(' + i + ')">&#8592; Back</button>'
+          + '          <button class="flip-back-btn" onclick="event.stopPropagation(); flipCard(\'' + containerId + '\', ' + i + ', event)">&#8592; Back</button>'
           + '        </div>'
           + '        <div class="flip-notes">';
         p.notes.forEach(function(note) {
@@ -398,16 +431,18 @@
           + '  </div>'
           + '</div>';
       });
-      flipGrid.innerHTML = html;
+      container.innerHTML = html;
     }
 
-    function flipCard(i, e) {
-      var card = document.getElementById('flipCard' + i);
+    renderGrid('flipGridFeatured', featured);
+    renderGrid('flipGridCommunity', community);
+    renderGrid('flipGridIdeas', ideas);
+
+    function flipCard(gridId, i, e) {
+      var card = document.getElementById(gridId + 'Card' + i);
       if (!card) return;
-      // Don't flip if clicking an interactive element inside the card
       var tag = e && e.target ? e.target.tagName : '';
       if (tag === 'A' || tag === 'BUTTON') return;
-      // Remove selected from all other cards
       document.querySelectorAll('.flip-card.selected').forEach(function(c) {
         if (c !== card) c.classList.remove('selected');
       });
