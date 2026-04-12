@@ -205,15 +205,18 @@
       background: #e8c8a8;
       border: none;
       border-radius: 6px;
-      padding: 8px 16px;
+      padding: 10px 16px;
       cursor: pointer;
       text-decoration: none;
-      display: inline-block;
+      display: block;
+      width: 100%;
+      box-sizing: border-box;
+      text-align: center;
       transition: opacity 0.2s ease, transform 0.2s ease;
     }
     .flip-visit-btn:hover {
       opacity: 0.85;
-      transform: scale(1.03);
+      transform: scale(1.02);
     }
     .flip-card-label {
       font-family: 'DM Sans', sans-serif;
@@ -428,7 +431,7 @@
         html += '        </div>'
           + '        <div class="flip-back-footer">'
           + '          <div class="flip-card-label">ge11yz ecosystem</div>'
-          + '          <button class="flip-visit-btn" style="background:' + p.accent + '" data-url="' + p.url + '" onclick="visitSite(this)">Visit &#8594;</button>'
+          + '          <button class="flip-visit-btn" style="background:' + p.accent + '" data-url="' + p.url + '" onclick="visitSite(event, this)">Visit &#8594;</button>'
           + '        </div>'
           + '      </div>'
           + '    </div>'
@@ -458,7 +461,9 @@
       }
     }
 
-    function visitSite(btn) {
+    function visitSite(e, btn) {
+      e.stopPropagation();
+      e.preventDefault();
       var url = btn.getAttribute('data-url');
       if (url) window.open(url, '_blank', 'noopener,noreferrer');
     }
