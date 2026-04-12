@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="fluid-overlay-styles.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚗</text></svg>">
   <style>
-    /* ── Projects flip cards (pastel on dark) ── */
+    /* ── Projects flip cards — matching Cormorant Garamond / DM Sans fonts ── */
     .flip-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -67,30 +67,41 @@
       flex-direction: column;
       height: 100%;
     }
+    /* Cormorant Garamond — matching the header/section fonts */
     .flip-site-name {
-      font-size: 18px;
-      font-weight: 500;
-      color: #fff;
-      margin-bottom: 4px;
-      line-height: 1.25;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 21px;
+      font-weight: 400;
+      font-style: italic;
+      color: rgba(255,255,255,0.88);
+      margin-bottom: 6px;
+      line-height: 1.2;
+      letter-spacing: 0.01em;
     }
     .flip-tagline {
-      font-size: 12px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
       margin-bottom: auto;
-      padding-top: 6px;
-      opacity: 0.65;
+      padding-top: 8px;
+      opacity: 0.48;
     }
     .flip-front-desc {
+      font-family: 'DM Sans', sans-serif;
       font-size: 12px;
-      color: #bbb;
-      line-height: 1.6;
+      font-weight: 300;
+      color: rgba(255,255,255,0.35);
+      line-height: 1.65;
       margin-bottom: 20px;
     }
     .flip-front-hint {
+      font-family: 'DM Sans', sans-serif;
       font-size: 10px;
-      color: rgba(255,255,255,0.2);
+      letter-spacing: 0.14em;
+      color: rgba(255,255,255,0.18);
       text-transform: uppercase;
-      letter-spacing: 0.1em;
     }
     .flip-back-content {
       padding: 20px;
@@ -105,44 +116,46 @@
       margin-bottom: 14px;
     }
     .flip-back-title {
-      font-size: 10px;
-      font-weight: 600;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
-      letter-spacing: 0.12em;
     }
     .flip-back-btn {
+      font-family: 'DM Sans', sans-serif;
       font-size: 10px;
+      font-weight: 300;
       background: rgba(255,255,255,0.06);
       border: none;
       color: rgba(255,255,255,0.3);
       padding: 3px 8px;
       border-radius: 4px;
       cursor: pointer;
-      font-family: inherit;
     }
-    .flip-back-btn:hover {
-      color: rgba(255,255,255,0.6);
-    }
+    .flip-back-btn:hover { color: rgba(255,255,255,0.6); }
     .flip-notes {
       flex: 1;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
-      gap: 7px;
+      gap: 8px;
       margin-bottom: 14px;
       padding-right: 2px;
     }
     .flip-note {
       display: flex;
       align-items: flex-start;
-      gap: 7px;
+      gap: 8px;
+      font-family: 'DM Sans', sans-serif;
       font-size: 11px;
-      color: #bbb;
-      line-height: 1.5;
+      font-weight: 300;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.55;
     }
     .flip-note-dot {
       font-size: 9px;
-      margin-top: 2px;
+      margin-top: 3px;
       flex-shrink: 0;
     }
     .flip-back-footer {
@@ -153,8 +166,9 @@
       border-top: 1px solid rgba(255,255,255,0.06);
     }
     .flip-visit-btn {
+      font-family: 'DM Sans', sans-serif;
       font-size: 11px;
-      font-weight: 600;
+      font-weight: 400;
       background: var(--accent);
       color: #000;
       border: none;
@@ -162,19 +176,17 @@
       border-radius: 6px;
       cursor: pointer;
       text-decoration: none;
-      font-family: inherit;
       transition: opacity 0.2s, transform 0.2s;
       display: inline-block;
     }
-    .flip-visit-btn:hover {
-      opacity: 0.85;
-      transform: scale(1.03);
-    }
+    .flip-visit-btn:hover { opacity: 0.85; transform: scale(1.03); }
     .flip-card-label {
+      font-family: 'DM Sans', sans-serif;
       font-size: 9px;
-      color: rgba(255,255,255,0.2);
+      font-weight: 300;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.18);
     }
   </style>
 </head>
@@ -329,7 +341,7 @@
           + '    <div class="flip-card-front">'
           + '      <div class="flip-glow" style="' + glowStyle + '"></div>'
           + '      <div class="flip-front-content">'
-          + '        <div class="flip-site-name" style="color:#fff">' + p.name + '</div>'
+          + '        <div class="flip-site-name">' + p.name + '</div>'
           + '        <div class="flip-tagline" style="color:' + p.accent + '">' + p.tagline + '</div>'
           + '        <div class="flip-front-desc">' + p.desc + '</div>'
           + '        <div class="flip-front-hint">tap to see details &#8594;</div>'
