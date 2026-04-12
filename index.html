@@ -424,7 +424,7 @@
         html += '        </div>'
           + '        <div class="flip-back-footer">'
           + '          <div class="flip-card-label">ge11yz ecosystem</div>'
-          + '          <a href="' + p.url + '" class="flip-visit-btn" style="background:' + p.accent + '" onclick="event.stopPropagation()">Visit &#8594;</a>'
+          + '          <a href="' + p.url + '" class="flip-visit-btn" style="background:' + p.accent + '" onclick="event.preventDefault(); window.open(\'' + p.url + '\', \'_blank\', \'noopener,noreferrer\')">Visit &#8594;</a>'
           + '        </div>'
           + '      </div>'
           + '    </div>'
