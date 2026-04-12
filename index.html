@@ -29,14 +29,6 @@
                   box-shadow 0.4s ease;
       transform-style: preserve-3d;
     }
-    /* Hover glow */
-    .flip-card:hover .flip-card-inner {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 40px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.12);
-    }
-    .flip-card:hover .flip-glow {
-      opacity: 0.18;
-    }
     /* Selected pulse ring */
     .flip-card.selected .flip-card-inner::after {
       content: '';
@@ -69,14 +61,14 @@
       overflow: hidden;
     }
     .flip-card-front {
-      background: rgba(10, 10, 10, 0.88);
-      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(10, 10, 10, 0.85);
+      border: none;
       display: flex;
       flex-direction: column;
     }
     .flip-card-back {
-      background: rgba(12, 12, 12, 0.95);
-      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(12, 12, 12, 0.92);
+      border: none;
       transform: rotateY(180deg);
       display: flex;
       flex-direction: column;
@@ -84,16 +76,17 @@
     .flip-glow {
       position: absolute;
       inset: 0;
-      opacity: 0.05;
+      opacity: 0;
       pointer-events: none;
+      transition: opacity 0.5s ease;
     }
-    .flip-front-content {
-      position: relative;
-      z-index: 1;
-      padding: 24px;
-      display: flex;
-      flex-direction: column;
-      height: 100%;
+    /* Hover glow — fade in/out smoothly */
+    .flip-card:hover .flip-glow {
+      opacity: 1;
+    }
+    .flip-card:hover .flip-card-inner {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.7);
     }
     /* Cormorant Garamond — matching the header/section fonts */
     .flip-site-name {
