@@ -49,26 +49,43 @@ header {
   font-size: 40px;
   font-weight: 300;
   letter-spacing: 0.18em;
-  color: #F5E6D3;
-  text-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  color: #e8d48a;
+  text-shadow: 0 0 20px rgba(232, 212, 138, 0.25), 0 1px 3px rgba(0,0,0,0.1);
   cursor: pointer;
-  transition: color 0.3s ease, text-shadow 0.3s ease;
+  transition: color 0.4s ease, text-shadow 0.4s ease;
   user-select: none;
 }
 
 .logo:hover {
-  color: #fff;
-  text-shadow: 0 0 20px rgba(245, 230, 211, 0.4);
+  color: #f5e8b0;
+  text-shadow: 0 0 30px rgba(245, 232, 176, 0.6), 0 0 60px rgba(245, 232, 176, 0.2);
 }
 
 .logo span {
-  color: #3a3a3a;
+  color: #c9a84c;
   text-shadow: none;
 }
 
+/* The Z — gentle idle pulse to hint it's interactive */
 .logo-z {
   display: inline-block;
+  color: #f5d96e;
+  text-shadow: 0 0 12px rgba(245, 217, 110, 0.5), 0 0 24px rgba(245, 217, 110, 0.2);
+  animation: zPulse 3s ease-in-out infinite;
   transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes zPulse {
+  0%, 100% {
+    text-shadow: 0 0 12px rgba(245, 217, 110, 0.4), 0 0 24px rgba(245, 217, 110, 0.15);
+    transform: scale(1);
+    opacity: 0.85;
+  }
+  50% {
+    text-shadow: 0 0 18px rgba(245, 217, 110, 0.7), 0 0 36px rgba(245, 217, 110, 0.3);
+    transform: scale(1.08);
+    opacity: 1;
+  }
 }
 
 .logo:active .logo-z {
@@ -80,10 +97,10 @@ header {
 }
 
 @keyframes logoPulse {
-  0%   { transform: scale(1); color: #F5E6D3; }
-  40%  { transform: scale(1.35); color: #fff; text-shadow: 0 0 40px rgba(255,255,255,0.9); }
+  0%   { transform: scale(1); color: #e8d48a; }
+  40%  { transform: scale(1.35); color: #fff; text-shadow: 0 0 40px rgba(245,232,176,0.9); }
   70%  { transform: scale(0.95); }
-  100% { transform: scale(1); color: #F5E6D3; }
+  100% { transform: scale(1); color: #e8d48a; }
 }
 
 /* Screen flash on logo click */
