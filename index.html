@@ -468,24 +468,15 @@
       if (url) window.open(url, '_blank', 'noopener,noreferrer');
     }
 
-    // Plink sound via Web Audio API
+    // Dream Loop audio for Z key
+    var plinkAudio = new Audio('audio/dream-loop.mp3');
+    plinkAudio.volume = 0.4;
+    plinkAudio.loop = false;
+
     function playPlink() {
       try {
-        var ctx = new (window.AudioContext || window.webkitAudioContext)();
-        var notes = [880, 1318.51, 1760]; // A5, E6, A6 — airy chord
-        notes.forEach(function(freq, i) {
-          var osc = ctx.createOscillator();
-          var gain = ctx.createGain();
-          osc.type = 'sine';
-          osc.frequency.value = freq;
-          gain.gain.setValueAtTime(0.07, ctx.currentTime);
-          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.35);
-          osc.connect(gain);
-          gain.connect(ctx.destination);
-          osc.start(ctx.currentTime + i * 0.03);
-          osc.stop(ctx.currentTime + 0.4);
-        });
-        setTimeout(function() { ctx.close(); }, 500);
+        plinkAudio.currentTime = 0;
+        plinkAudio.play();
       } catch(e) {}
     }
 
