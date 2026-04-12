@@ -367,7 +367,7 @@
       projects.forEach(function(p, i) {
         var glowStyle = 'background:radial-gradient(ellipse at 30% 20%, ' + p.accent + ' 0%, transparent 60%)';
         html += ''
-          + '<div class="flip-card" id="flipCard' + i + '" style="--accent:' + p.accent + '" onclick="flipCard(' + i + ')">'
+          + '<div class="flip-card" id="flipCard' + i + '" style="--accent:' + p.accent + '" onclick="flipCard(' + i + ', event)">'
           + '  <div class="flip-card-inner">'
           + '    <div class="flip-card-front">'
           + '      <div class="flip-glow" style="' + glowStyle + '"></div>'
@@ -401,9 +401,12 @@
       flipGrid.innerHTML = html;
     }
 
-    function flipCard(i) {
+    function flipCard(i, e) {
       var card = document.getElementById('flipCard' + i);
       if (!card) return;
+      // Don't flip if clicking an interactive element inside the card
+      var tag = e && e.target ? e.target.tagName : '';
+      if (tag === 'A' || tag === 'BUTTON') return;
       // Remove selected from all other cards
       document.querySelectorAll('.flip-card.selected').forEach(function(c) {
         if (c !== card) c.classList.remove('selected');
