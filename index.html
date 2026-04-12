@@ -78,11 +78,11 @@
       inset: 0;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.5s ease;
+      transition: opacity 1.2s ease;
     }
-    /* Hover glow — fade in/out smoothly */
+    /* Hover glow — very dim, slow fade */
     .flip-card:hover .flip-glow {
-      opacity: 1;
+      opacity: 0.28;
     }
     .flip-card:hover .flip-card-inner {
       transform: translateY(-4px);
@@ -124,11 +124,21 @@
       color: rgba(255,255,255,0.18);
       text-transform: uppercase;
     }
-    .flip-back-content {
-      padding: 20px;
+    .flip-front-content {
+      position: relative;
+      z-index: 1;
+      padding: 28px;
       display: flex;
       flex-direction: column;
       height: 100%;
+      box-sizing: border-box;
+    }
+    .flip-back-content {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      box-sizing: border-box;
     }
     .flip-back-header {
       display: flex;
