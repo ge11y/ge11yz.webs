@@ -470,8 +470,8 @@
 
     // The Waves — ambient background (starts on first Z, loops forever)
     var wavesAudio = new Audio('audio/the-waves.mp3');
-    wavesAudio.volume = 0.3;
     wavesAudio.loop = true;
+    wavesAudio.volume = 0.3;
     wavesAudio.preload = 'auto';
 
     // Short plink/chime on Z key via Web Audio API
@@ -500,19 +500,8 @@
     document.addEventListener('keydown', function firstZ(e) {
       if ((e.key === 'z' || e.key === 'Z') && !easterEggTriggered) {
         easterEggTriggered = true;
-        window._dbg = 'Z detected, playing audio...';
-        var playPromise = wavesAudio.play();
-        window._dbg = 'play() called, promise: ' + (typeof playPromise);
-        if (playPromise !== undefined) {
-          playPromise.then(function() {
-            window._dbg = 'audio playing!';
-            colorBurst();
-          }).catch(function(err) {
-            window._dbg = 'play failed: ' + err.message;
-          });
-        } else {
-          colorBurst();
-        }
+        wavesAudio.play().catch(function() {});
+        try { colorBurst(); } catch(e) {}
       }
     });
 
