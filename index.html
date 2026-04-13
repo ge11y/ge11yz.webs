@@ -468,11 +468,6 @@
       if (url) window.open(url, '_blank', 'noopener,noreferrer');
     }
 
-    // Dream Loop audio — ambient background (looping)
-    var bgAudio = new Audio('audio/dream-loop.mp3');
-    bgAudio.volume = 0.25;
-    bgAudio.loop = true;
-
     // Short plink/chime on Z key via Web Audio API
     function playPlink() {
       try {
@@ -494,16 +489,7 @@
       } catch(e) {}
     }
 
-    // Start ambient audio on first user interaction (browser autoplay policy)
-    var audioStarted = false;
-    function startAudio() {
-      if (audioStarted) return;
-      audioStarted = true;
-      bgAudio.play().catch(function() {});
-    }
-    document.addEventListener('click', startAudio, { once: true });
     document.addEventListener('keydown', function(e) {
-      startAudio();
       if (e.key === 'z' || e.key === 'Z') playPlink();
     });
 
