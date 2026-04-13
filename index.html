@@ -472,6 +472,7 @@
     var wavesAudio = new Audio('audio/the-waves.mp3');
     wavesAudio.volume = 0.3;
     wavesAudio.loop = true;
+    wavesAudio.preload = 'auto';
 
     // Short plink/chime on Z key via Web Audio API
     function playPlink() {
@@ -499,8 +500,15 @@
     document.addEventListener('keydown', function firstZ(e) {
       if ((e.key === 'z' || e.key === 'Z') && !easterEggTriggered) {
         easterEggTriggered = true;
-        wavesAudio.play().catch(function() {});
-        colorBurst();
+        var playPromise = wavesAudio.play();
+        if (playPromise !== undefined) {
+          playPromise.then(function() {
+            // playing
+          }).catch(function(err) {
+            console.warn('Audio play failed:', err);
+          });
+        }
+        try { colorBurst(); } catch(e) { console.warn('Burst failed:', e); }
       }
     });
 
@@ -525,14 +533,18 @@
     var paletteIndex = 0;
 
     function colorBurst() {
-      for (var i = 0; i < 6; i++) {
-        setTimeout(function(idx) {
-          var hue = (config.SPLAT_HUE + idx * 0.12) % 1.0;
-          var c = HSVtoRGB(hue, 0.9, 0.85);
-          c.r *= 1.5; c.g *= 1.5; c.b *= 1.5;
-          splat(0.3 + Math.random() * 0.4, 0.3 + Math.random() * 0.4, (Math.random() - 0.5) * 10000, (Math.random() - 0.5) * 10000, c);
-        }.bind(null, i), i * 40);
-      }
+      try {
+        for (var i = 0; i < 6; i++) {
+          setTimeout(function(idx) {
+            try {
+              var hue = (config.SPLAT_HUE + idx * 0.12) % 1.0;
+              var c = HSVtoRGB(hue, 0.9, 0.85);
+              c.r *= 1.5; c.g *= 1.5; c.b *= 1.5;
+              splat(0.3 + Math.random() * 0.4, 0.3 + Math.random() * 0.4, (Math.random() - 0.5) * 10000, (Math.random() - 0.5) * 10000, c);
+            } catch(e) {}
+          }.bind(null, i), i * 40);
+        }
+      } catch(e) {}
     }
 
     var logo = document.getElementById('logo');
