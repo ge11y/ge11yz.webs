@@ -468,6 +468,11 @@
       if (url) window.open(url, '_blank', 'noopener,noreferrer');
     }
 
+    // The Waves — ambient background (starts on first Z, loops forever)
+    var wavesAudio = new Audio('audio/the-waves.mp3');
+    wavesAudio.volume = 0.3;
+    wavesAudio.loop = true;
+
     // Short plink/chime on Z key via Web Audio API
     function playPlink() {
       try {
@@ -489,8 +494,21 @@
       } catch(e) {}
     }
 
+    // First Z: start waves music + color burst
+    var easterEggTriggered = false;
+    document.addEventListener('keydown', function firstZ(e) {
+      if ((e.key === 'z' || e.key === 'Z') && !easterEggTriggered) {
+        easterEggTriggered = true;
+        wavesAudio.play().catch(function() {});
+        colorBurst();
+      }
+    });
+
+    // Every Z after easter egg: play plink chime
     document.addEventListener('keydown', function(e) {
-      if (e.key === 'z' || e.key === 'Z') playPlink();
+      if (easterEggTriggered && (e.key === 'z' || e.key === 'Z')) {
+        playPlink();
+      }
     });
 
     // Logo color burst
