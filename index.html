@@ -500,15 +500,19 @@
     document.addEventListener('keydown', function firstZ(e) {
       if ((e.key === 'z' || e.key === 'Z') && !easterEggTriggered) {
         easterEggTriggered = true;
+        window._dbg = 'Z detected, playing audio...';
         var playPromise = wavesAudio.play();
+        window._dbg = 'play() called, promise: ' + (typeof playPromise);
         if (playPromise !== undefined) {
           playPromise.then(function() {
-            // playing
+            window._dbg = 'audio playing!';
+            colorBurst();
           }).catch(function(err) {
-            console.warn('Audio play failed:', err);
+            window._dbg = 'play failed: ' + err.message;
           });
+        } else {
+          colorBurst();
         }
-        try { colorBurst(); } catch(e) { console.warn('Burst failed:', e); }
       }
     });
 
